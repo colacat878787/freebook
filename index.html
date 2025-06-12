@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebacon</title>
+    <title>facebacon - 椰子水培根</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -771,6 +771,124 @@
             color: #050505;
         }
 
+        /* Messenger Modal Styles */
+        .messenger-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000; /* Higher than other elements */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px; /* Fixed width for the modal */
+            height: 500px; /* Fixed height */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+        }
+
+        .messenger-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e4e6eb;
+            background-color: #1877f2;
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+        }
+        .messenger-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .messenger-header .close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: opacity 0.2s;
+        }
+        .messenger-header .close-btn:hover {
+            opacity: 0.8;
+        }
+
+        .messenger-body {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #f0f2f5;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            word-wrap: break-word;
+            line-height: 1.4;
+            font-size: 15px;
+        }
+
+        .message-bubble.sent {
+            background-color: #0084ff; /* Blue for sent messages */
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bubble.received {
+            background-color: #e4e6eb; /* Gray for received messages */
+            color: #050505;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .messenger-footer {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-top: 1px solid #e4e6eb;
+            background-color: #fff;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .messenger-footer input[type="text"] {
+            flex-grow: 1;
+            border: none;
+            background-color: #f0f2f5;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 15px;
+            outline: none;
+            margin-right: 10px;
+        }
+        .messenger-footer input[type="text"]:focus {
+            background-color: #e4e6eb;
+        }
+
+        .messenger-footer button {
+            background-color: #1877f2;
+            color: #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            padding: 0;
+            flex-shrink: 0; /* Prevent button from shrinking */
+        }
+        .messenger-footer button:hover {
+            background-color: #166fe5;
+        }
+
         /* Responsive Design (Mobile Optimization) */
         @media (max-width: 1024px) {
             .main-content {
@@ -852,6 +970,10 @@
             .top-nav .profile-icon-small {
                 width: 36px; /* 縮小頭像 */
                 height: 36px;
+            }
+            .messenger-modal {
+                width: 90%; /* On smaller screens, modal takes more width */
+                height: 80%; /* Adjust height */
             }
         }
 
@@ -973,6 +1095,10 @@
                 font-size: 14px; /* 縮小貼文動作按鈕字體 */
                 padding: 6px 0;
             }
+            .messenger-modal {
+                width: 95%;
+                height: 90%;
+            }
         }
     </style>
 </head>
@@ -1027,8 +1153,8 @@
                             <p>你好啊 這是我的facebacon官方帳號 不是FaceBook喔~~</p>
                         </div>
                         <div class="profile-header-actions">
-                            <button class="primary-button"><i class="fab fa-facebook-messenger"></i> 發送訊息</button>
-                            <button><i class="fas fa-user-plus"></i> 加朋友</button>
+                            <button id="sendMessageButton" class="primary-button"><i class="fab fa-facebook-messenger"></i> 發送訊息</button>
+                            <button id="addFriendButton"><i class="fas fa-user-plus"></i> 加朋友</button>
                         </div>
                     </div>
 
@@ -1184,6 +1310,20 @@
         </div>
     </div>
 
+    <div id="messengerModal" class="messenger-modal">
+        <div class="messenger-header">
+            <h2>與 椰子水培根 聊天</h2>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="messenger-body" id="messengerBody">
+            <div class="message-bubble received">這是自動回覆訊息!! 歡迎瀏覽我的個人檔案</div>
+        </div>
+        <div class="messenger-footer">
+            <input type="text" id="messengerInput" placeholder="輸入訊息...">
+            <button id="sendMessageInModal"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
     <script>
         const RICKROLL_URL = "https://media1.tenor.com/m/x8v1oNUOmg4AAAAd/rickroll-roll.gif"; // Rickroll 圖片 URL
         const MY_AVATAR_URL = "https://lh3.googleusercontent.com/a/ACg8ocIVpP1hV86oybYDe1jhQoOKE5HjkI6wF3BEgKNH_iT1EaLBmYXZ=s288-c-no"; // 您的頭像連結
@@ -1333,6 +1473,76 @@
                     addCommentInputListener(commentInput);
                 }
             });
+
+            // 加朋友按鈕功能
+            const addFriendButton = document.getElementById('addFriendButton');
+            if (addFriendButton) {
+                addFriendButton.addEventListener('click', function() {
+                    // 點擊後變為「取消邀請」
+                    this.innerHTML = '<i class="fas fa-user-minus"></i> 取消邀請';
+
+                    // 3 秒後變回「朋友」
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-user-check"></i> 朋友';
+                    }, 3000);
+                });
+            }
+
+            // Messenger 彈窗功能
+            const sendMessageButton = document.getElementById('sendMessageButton');
+            const messengerModal = document.getElementById('messengerModal');
+            const closeMessengerBtn = messengerModal.querySelector('.close-btn');
+            const messengerBody = document.getElementById('messengerBody');
+            const messengerInput = document.getElementById('messengerInput');
+            const sendMessageInModalBtn = document.getElementById('sendMessageInModal');
+
+            if (sendMessageButton) {
+                sendMessageButton.addEventListener('click', function() {
+                    messengerModal.style.display = 'flex'; // 顯示彈窗
+                    messengerBody.scrollTop = messengerBody.scrollHeight; // 滾動到最底部
+                });
+            }
+
+            if (closeMessengerBtn) {
+                closeMessengerBtn.addEventListener('click', function() {
+                    messengerModal.style.display = 'none'; // 隱藏彈窗
+                });
+            }
+
+            function sendUserMessage() {
+                const messageText = messengerInput.value.trim();
+                if (messageText) {
+                    const sentBubble = document.createElement('div');
+                    sentBubble.classList.add('message-bubble', 'sent');
+                    sentBubble.textContent = messageText;
+                    messengerBody.appendChild(sentBubble);
+                    messengerInput.value = ''; // 清空輸入框
+                    messengerBody.scrollTop = messengerBody.scrollHeight; // 滾動到最底部
+
+                    // 自動回覆邏輯
+                    setTimeout(() => {
+                        const replies = ["嗨?", "你好!", "這是自動回覆訊息!! 歡迎瀏覽我的個人檔案"];
+                        const randomReply = replies[Math.floor(Math.random() * replies.length)];
+                        const receivedBubble = document.createElement('div');
+                        receivedBubble.classList.add('message-bubble', 'received');
+                        receivedBubble.textContent = randomReply;
+                        messengerBody.appendChild(receivedBubble);
+                        messengerBody.scrollTop = messengerBody.scrollHeight; // 滾動到最底部
+                    }, 1000); // 1 秒後回覆
+                }
+            }
+
+            if (sendMessageInModalBtn) {
+                sendMessageInModalBtn.addEventListener('click', sendUserMessage);
+            }
+
+            if (messengerInput) {
+                messengerInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendUserMessage();
+                    }
+                });
+            }
         });
 
     </script>
