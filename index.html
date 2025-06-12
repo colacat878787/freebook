@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>facebacon - 椰子水培根</title>
+    <title>Facebacon</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -88,6 +88,10 @@
             color: #1877f2; /* Blue logo */
             letter-spacing: -0.5px;
             margin-right: 10px;
+            user-select: none; /* Make text unselectable */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE/Edge */
         }
 
         .top-nav .search-box {
@@ -636,9 +640,84 @@
         .post-card .post-footer .action-button:active {
             transform: translateY(1px) rotateX(5deg) scale(0.98);
         }
-        .post-card .post-footer .action-button i {
-            font-size: 18px;
+        .post-card .post-footer .action-button.liked {
+            color: #1877f2; /* 點讚後變藍色 */
         }
+
+        /* Comments Section */
+        .post-comments {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f2f5;
+        }
+        .post-comments .comment-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        .post-comments .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        .post-comments .comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .post-comments .comment-content {
+            background-color: #f0f2ff; /* 留言泡泡背景色 */
+            border-radius: 18px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #050505;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        .post-comments .comment-author {
+            font-weight: 600;
+            margin-right: 5px;
+            display: inline-block;
+        }
+        .post-comments .comment-text {
+            display: inline;
+        }
+        .comment-input-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .comment-input-area .comment-avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .comment-input-area .comment-avatar-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .comment-input-area input[type="text"] {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            background-color: #f0f2f5;
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #050505;
+        }
+        .comment-input-area input[type="text"]:focus {
+            background-color: #e4e6eb;
+        }
+
+
         /* Right Sidebar (Placeholder for other elements) */
         .right-sidebar {
             flex-basis: 200px; /* Further reduced width */
@@ -739,6 +818,14 @@
                 margin-left: 0;
                 justify-content: center; /* 按鈕居中 */
                 flex-wrap: wrap; /* 允許按鈕換行 */
+            }
+            .profile-header-actions button {
+                background-color: #e4e6eb;
+                color: #050505;
+            }
+            .profile-header-actions button.primary-button {
+                background-color: #1877f2;
+                color: #fff;
             }
             .profile-sub-nav {
                 padding: 0 10px; /* 調整導航欄內邊距 */
@@ -988,11 +1075,23 @@
 
                         <div class="card friends-card">
                             <h2 class="card-title">朋友</h2>
-                            <p style="font-size: 15px; color: #65676b; margin-bottom: 15px;">1 位朋友</p>
+                            <p style="font-size: 15px; color: #65676b; margin-bottom: 15px;">3 位朋友</p>
                             <div class="friends-grid">
                                 <div class="friend-item">
                                     <img src="https://images-ext-1.discordapp.net/external/O4z9VyYfjWbWYfos2IGk5Wj36JR2gdVvc6yQS8XuquI/%3Fsize%3D512/https/cdn.discordapp.com/avatars/1155374698465591336/df71f1149ea8147924e75ac36cd24e84.png" alt="紫貓">
                                     <span class="friend-name">紫貓</span>
+                                </div>
+                                <div class="friend-item">
+                                    <a href="https://www.facebook.com/lin.jie.yi.890079" target="_blank">
+                                        <img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/464582559_3388645084612143_4564427117932410506_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=quSnG1VD6foQ7kNvwE4KF8r&_nc_oc=Adn2tzY93nbvE7uzlnTSQnrKdMPrjmCHOv46K3wHCtnWhut2vqnhW4-zncx_6wrqlrbAy-PWrvu-RGenKpzMhkhn&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=OG1bwT75NInI6ukgWvtM4A&oh=00_AfN0YeSkovTOvFwGgkEGkfUYiNPd2e84NBCcBgFgXAfqIw&oe=68502ABE" alt="林潔宜">
+                                        <span class="friend-name">林潔宜</span>
+                                    </a>
+                                </div>
+                                <div class="friend-item">
+                                    <a href="https://www.facebook.com/profile.php?id=100000351736667" target="_blank">
+                                        <img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/468277673_8965352813486354_2255209570824690874_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=vkJ-CwTccN4Q7kNvwEZNfAT&_nc_oc=Adm-8k_oBGaV7VUxYUM--iOuCq1A-Fv5W23O1Jy3XBpr8DieaTSM2fnQ5b2cZy4R6FhojGTP7ngoniqg3JkXYcdu&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=m8xkugF7pb0-Ixscf9HLww&oh=00_AfOUBF84VqShidUwhxf_s6ovpcrOOQcDA-Oa9oYViBu_Uw&oe=6850485F" alt="蔡文昌">
+                                        <span class="friend-name">蔡文昌</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -1025,9 +1124,15 @@
                                 </div>
                                 <p class="post-content-text">晚安:></p>
                                 <div class="post-footer">
-                                    <button class="action-button"><i class="far fa-thumbs-up"></i> 讚</button>
-                                    <button class="action-button"><i class="far fa-comment-alt"></i> 留言</button>
-                                    <button class="action-button"><i class="fas fa-share"></i> 分享</button>
+                                    <button class="action-button like-button"><i class="far fa-thumbs-up"></i> 讚</button>
+                                    <button class="action-button comment-button"><i class="far fa-comment-alt"></i> 留言</button>
+                                    <button class="action-button share-button"><i class="fas fa-share"></i> 分享</button>
+                                </div>
+                                <div class="post-comments">
+                                    <div class="comment-input-area">
+                                        <div class="comment-avatar-small"><img src="https://lh3.googleusercontent.com/a/ACg8ocIVpP1hV86oybYDe1jhQoOKE5HjkI6wF3BEgKNH_iT1EaLBmYXZ=s288-c-no" alt="Your Avatar"></div>
+                                        <input type="text" class="comment-input" placeholder="撰寫留言...">
+                                    </div>
                                 </div>
                             </div>
                             <div class="post-card">
@@ -1040,9 +1145,15 @@
                                 </div>
                                 <p class="post-content-text">早安:></p>
                                 <div class="post-footer">
-                                    <button class="action-button"><i class="far fa-thumbs-up"></i> 讚</button>
-                                    <button class="action-button"><i class="far fa-comment-alt"></i> 留言</button>
-                                    <button class="action-button"><i class="fas fa-share"></i> 分share</button>
+                                    <button class="action-button like-button"><i class="far fa-thumbs-up"></i> 讚</button>
+                                    <button class="action-button comment-button"><i class="far fa-comment-alt"></i> 留言</button>
+                                    <button class="action-button share-button"><i class="fas fa-share"></i> 分享</button>
+                                </div>
+                                <div class="post-comments">
+                                    <div class="comment-input-area">
+                                        <div class="comment-avatar-small"><img src="https://lh3.googleusercontent.com/a/ACg8ocIVpP1hV86oybYDe1jhQoOKE5HjkI6wF3BEgKNH_iT1EaLBmYXZ=s288-c-no" alt="Your Avatar"></div>
+                                        <input type="text" class="comment-input" placeholder="撰寫留言...">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1056,6 +1167,18 @@
                         <div class="contact-avatar"><img src="https://images-ext-1.discordapp.net/external/O4z9VyYfjWbWYfos2IGk5Wj36JR2gdVvc6yQS8XuquI/%3Fsize%3D512/https/cdn.discordapp.com/avatars/1155374698465591336/df71f1149ea8147924e75ac36cd24e84.png" alt="紫貓"></div>
                         <span class="contact-name">紫貓</span>
                     </div>
+                     <a href="https://www.facebook.com/lin.jie.yi.890079" target="_blank" class="contact-item">
+                        <div class="contact-avatar">
+                            <img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/464582559_3388645084612143_4564427117932410506_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=quSnG1VD6foQ7kNvwE4KF8r&_nc_oc=Adn2tzY93nbvE7uzlnTSQnrKdMPrjmCHOv46K3wHCtnWhut2vqnhW4-zncx_6wrqlrbAy-PWrvu-RGenKpzMhkhn&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=OG1bwT75NInI6ukgWvtM4A&oh=00_AfN0YeSkovTOvFwGgkEGkfUYiNPd2e84NBCcBgFgXAfqIw&oe=68502ABE" alt="林潔宜">
+                        </div>
+                        <span class="contact-name">林潔宜</span>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100000351736667" target="_blank" class="contact-item">
+                        <div class="contact-avatar">
+                            <img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/468277673_8965352813486354_2255209570824690874_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=vkJ-CwTccN4Q7kNvwEZNfAT&_nc_oc=Adm-8k_oBGaV7VUxYUM--iOuCq1A-Fv5W23O1Jy3XBpr8DieaTSM2fnQ5b2cZy4R6FhojGTP7ngoniqg3JkXYcdu&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=m8xkugF7pb0-Ixscf9HLww&oh=00_AfOUBF84VqShidUwhxf_s6ovpcrOOQcDA-Oa9oYViBu_Uw&oe=6850485F" alt="蔡文昌">
+                        </div>
+                        <span class="contact-name">蔡文昌</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1063,8 +1186,8 @@
 
     <script>
         const RICKROLL_URL = "https://media1.tenor.com/m/x8v1oNUOmg4AAAAd/rickroll-roll.gif"; // Rickroll 圖片 URL
-        // 將訪客頭像也改為椰子水培根的頭像
-        const MY_AVATAR_URL = "https://lh3.googleusercontent.com/a/ACg8ocIVpP1hV86oybYDe1jhQoOKE5HjkI6wF3BEgKNH_iT1EaLBmYXZ=s288-c-no"; 
+        const MY_AVATAR_URL = "https://lh3.googleusercontent.com/a/ACg8ocIVpP1hV86oybYDe1jhQoOKE5HjkI6wF3BEgKNH_iT1EaLBmYXZ=s288-c-no"; // 您的頭像連結
+        const SHARE_LINK = "https://colacat878787.github.io/myprofile"; // 分享連結
 
         // 導航欄切換及 Rickroll 連結
         document.querySelectorAll('.profile-sub-nav .nav-link').forEach(link => {
@@ -1076,15 +1199,16 @@
                 this.classList.add('active');
 
                 // 判斷是否需要 Rickroll
-                if (this.dataset.target !== 'about' && this.dataset.target !== 'posts') { // 只有「關於」和「貼文」是正常導航，其他都 Rickroll
+                // 只有「關於」和「貼文」是正常導航，其他都 Rickroll
+                // 也要避免 YouTube 連結被 Rickroll
+                if (this.dataset.target !== 'about' && this.dataset.target !== 'posts' && this.href.indexOf('https://www.youtube.com/watch?v=dQw4w9WgXcQ') === -1) { 
                     e.preventDefault(); // 阻止默認行為
                     window.open(RICKROLL_URL, '_blank');
                 } else if (this.dataset.target === 'posts') {
                     // 如果是「貼文」，則簡單阻止默認行為，因為目前沒有實際的「貼文」內容切換
                     e.preventDefault(); 
                 } else {
-                    // 如果是「關於」，也阻止默認行為，停留在當前頁面
-                    e.preventDefault();
+                    // 如果是「關於」或 YouTube 連結，不阻止默認行為，正常跳轉或停留在當前頁面
                 }
             });
         });
@@ -1116,19 +1240,101 @@
                         </div>
                     </div>
                     <p class="post-content-text">${postContent}</p>
-                    <div class="post-media">
-                        <img src="${RICKROLL_URL}" alt="Rickroll GIF">
-                    </div>
                     <div class="post-footer">
-                        <button class="action-button"><i class="far fa-thumbs-up"></i> 讚</button>
-                        <button class="action-button"><i class="far fa-comment-alt"></i> 留言</button>
-                        <button class="action-button"><i class="fas fa-share"></i> 分享</button>
+                        <button class="action-button like-button"><i class="far fa-thumbs-up"></i> 讚</button>
+                        <button class="action-button comment-button"><i class="far fa-comment-alt"></i> 留言</button>
+                        <button class="action-button share-button"><i class="fas fa-share"></i> 分享</button>
+                    </div>
+                    <div class="post-comments">
+                        <div class="comment-input-area">
+                            <div class="comment-avatar-small"><img src="${MY_AVATAR_URL}" alt="Your Avatar"></div>
+                            <input type="text" class="comment-input" placeholder="撰寫留言...">
+                        </div>
                     </div>
                 `;
                 postsContainer.prepend(newPost); // 將新貼文加到最前面
                 document.getElementById('postContent').value = ''; // 清空輸入框
+
+                // 為新創建的貼文添加事件監聽器
+                addPostButtonListeners(newPost);
+                addCommentInputListener(newPost.querySelector('.comment-input'));
             }
         });
+
+        // 為貼文操作按鈕添加事件監聽器
+        function addPostButtonListeners(postCardElement) {
+            // 讚按鈕
+            const likeButton = postCardElement.querySelector('.like-button');
+            if (likeButton) {
+                likeButton.addEventListener('click', function() {
+                    this.classList.toggle('liked'); // 切換 'liked' class 來改變顏色
+                    if (this.classList.contains('liked')) {
+                        this.innerHTML = '<i class="fas fa-thumbs-up"></i> 已讚'; // 實心圖標和文字
+                    } else {
+                        this.innerHTML = '<i class="far fa-thumbs-up"></i> 讚'; // 空心圖標和文字
+                    }
+                });
+            }
+
+            // 留言按鈕
+            const commentButton = postCardElement.querySelector('.comment-button');
+            if (commentButton) {
+                commentButton.addEventListener('click', function() {
+                    // Focus on the comment input when "留言" button is clicked
+                    const commentInput = postCardElement.querySelector('.comment-input');
+                    if (commentInput) {
+                        commentInput.focus();
+                    }
+                });
+            }
+
+            // 分享按鈕
+            const shareButton = postCardElement.querySelector('.share-button');
+            if (shareButton) {
+                shareButton.addEventListener('click', function() {
+                    navigator.clipboard.writeText(SHARE_LINK).then(() => {
+                        alert("連結已複製到剪貼簿：" + SHARE_LINK);
+                    }).catch(err => {
+                        console.error('複製失敗: ', err);
+                        alert("複製連結失敗，請手動複製：" + SHARE_LINK);
+                    });
+                });
+            }
+        }
+
+        // 為留言輸入框添加事件監聽器
+        function addCommentInputListener(commentInput) {
+            commentInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && this.value.trim() !== "") {
+                    e.preventDefault(); // Prevent default Enter behavior (e.g., new line)
+                    const commentsSection = this.closest('.post-comments');
+                    const newComment = document.createElement('div');
+                    newComment.classList.add('comment-item');
+                    newComment.innerHTML = `
+                        <div class="comment-avatar"><img src="${MY_AVATAR_URL}" alt="Your Avatar"></div>
+                        <div class="comment-content">
+                            <span class="comment-author">椰子水培根</span>
+                            <span class="comment-text">${this.value.trim()}</span>
+                        </div>
+                    `;
+                    commentsSection.insertBefore(newComment, this.closest('.comment-input-area')); // Insert before the input area
+                    this.value = ''; // Clear the input field
+                }
+            });
+        }
+
+
+        // 頁面載入後，為所有現有貼文添加事件監聽器
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.post-card').forEach(postCard => {
+                addPostButtonListeners(postCard);
+                const commentInput = postCard.querySelector('.comment-input');
+                if (commentInput) {
+                    addCommentInputListener(commentInput);
+                }
+            });
+        });
+
     </script>
 
 </body>
